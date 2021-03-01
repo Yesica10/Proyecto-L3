@@ -34,13 +34,10 @@ namespace BL.Entregas
             {
                 return resultado;
             }
-
-            if(cliente.CodigoCliente == 0)
-            {
-                cliente.CodigoCliente = ListadeClientes.Max(item => item.CodigoCliente) + 1;
-            }
-
+            _contexto.SaveChanges();
+          
             resultado.Exitoso = true;
+            
             return resultado;
         }
         // Funcion AGREGAMOS UN NUEVO CLIENTE
@@ -50,13 +47,14 @@ namespace BL.Entregas
             ListadeClientes.Add(nuevoCliente);
         }
         //Funcion Eliminar 
-        public bool EliminarCliente(int id)
+        public bool EliminarCliente(int Id)
         {
             foreach (var cliente in ListadeClientes)
             {
-                if (cliente.CodigoCliente == id)
+                if (cliente.Id == Id)
                 {
                     ListadeClientes.Remove(cliente);
+                    _contexto.SaveChanges();
                     return true;
                 }
                     
@@ -101,7 +99,8 @@ namespace BL.Entregas
 
     public class Clientes //CLASE Y DEFINICION DE PROPIEDADES
     {
-        public int CodigoCliente { get; set; }
+        public int Id { get; set; }
+        //public int CodigoCliente { get; set; }
         public string RTN { get; set; }
         public string NombredeEmpresa { get; set; }
         public string Direccion { get; set; }

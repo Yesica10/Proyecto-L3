@@ -66,6 +66,7 @@ namespace Entregas
             {
                 listadeClientesBindingSource.ResetBindings(false);
                 DeshabilitarHabilitarBotones(true);
+                MessageBox.Show("Producto Guardado");
             }
             else
             {
@@ -75,13 +76,13 @@ namespace Entregas
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
-            if (codigoClienteTextBox.Text != "" )
+            if (IdTextBox.Text != "" )
             {
                 var resultado = MessageBox.Show("Desea eliminar este Cliente?", "Eliminar", MessageBoxButtons.YesNo);
                 if (resultado == DialogResult.Yes)
                 {
-                    var id = Convert.ToInt32(codigoClienteTextBox.Text);
-                    Eliminar(id);
+                    var Id = Convert.ToInt32(IdTextBox.Text);
+                    Eliminar(Id);
                 }
             }
             
@@ -107,6 +108,16 @@ namespace Entregas
         {
             DeshabilitarHabilitarBotones(true);
             Eliminar(0);
+        }
+
+        private void IdTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
