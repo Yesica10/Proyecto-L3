@@ -44,7 +44,7 @@ namespace BL.Entregas
             {
                 return resultado;
             }
-            
+            _contexto.SaveChanges();
           
             resultado.Exitoso = true;
            
@@ -65,7 +65,7 @@ namespace BL.Entregas
                 if (cliente.Id == Id)
                 {
                     ListadeClientes.Remove(cliente);
-                   
+                    _contexto.SaveChanges();
                     return true;
                 }
                     
@@ -78,6 +78,14 @@ namespace BL.Entregas
         {
             var resultado = new Resultado();
             resultado.Exitoso = true;
+
+            if (Cliente == null)
+            {
+                resultado.Mensaje = "Agregue un cliente valido";
+                resultado.Exitoso = false;
+
+                return resultado;
+            }
             if (string.IsNullOrEmpty(Cliente.Contacto) == true)
             {
                 resultado.Mensaje = "Ingrese un contacto";
@@ -103,7 +111,17 @@ namespace BL.Entregas
                 resultado.Mensaje = "Ingrese un nombre de la empresa";
                 resultado.Exitoso = false;
             }
-        
+            if (Cliente.Activo != true)
+            {
+                resultado.Mensaje = "Marque la casilla de cliente como activo";
+                resultado.Exitoso = false;
+            }
+            if (Cliente.TipoId == 0)
+            {
+                resultado.Mensaje = "Especifique un Tipo";
+                resultado.Exitoso = false;
+            }
+
             return resultado;
         }
     }
